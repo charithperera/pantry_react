@@ -5,3 +5,7 @@ input[type="number"] {
   text-align: center;
   border: 2px solid;
 }
+
+.delete {
+  margin-left: -10px !important;
+}

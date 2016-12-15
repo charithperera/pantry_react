@@ -3,11 +3,11 @@ import './my_stats.css';
 
 
 const MyStats = (props) => {
-  const myStats = props.stats
+  const myStats = props.myStats
 
   return (
     <div className="daily-stats">
-      <h2>My Stats</h2>
+      <h2>My Macros</h2>
       <div className="row">
         <div className="col-xs-3">
           <h1>{Math.abs(myStats.calories.toFixed(0))}</h1>

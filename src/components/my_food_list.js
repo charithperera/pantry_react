@@ -10,6 +10,7 @@ const MyFoodList = (props) => {
         key={food.id}
         food={food}
         onQuantityChange={props.onQuantityChange}
+        onDelete={props.onDelete}
       />
     );
   });

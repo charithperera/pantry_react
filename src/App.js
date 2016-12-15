@@ -25,8 +25,10 @@ class App extends Component {
     }
 
     // this.foodSearch('apple');
-    // this.addFood = this.addFood.bind(this);
+    this.addFood = this.addFood.bind(this);
     this.removeFood = this.removeFood.bind(this);
+    this.updateStats = this.updateStats.bind(this);
+    this.displayFood = this.displayFood.bind(this);
   }
 
   componentDidMount() {
@@ -44,15 +46,24 @@ class App extends Component {
   }
 
 
-  addFood = (selectedFood) => {
+  addFood(selectedFood) {
+    selectedFood["quantity"] = 1;
+    console.log(selectedFood);
     this.setState({selectedFood})
     if (!this.state.myFoods.includes(selectedFood)) {
+      const current = this.state.myFoods;
+      current.push(selectedFood);
       this.setState({
-        myFoods: this.state.myFoods.concat(selectedFood)
+        myFoods: current
       })
-      this.updateCalories(selectedFood, 1)
+      this.updateStats();
     }
+    // this.updateStats();
     // localStorage.state = JSON.stringify(this.state);
+  }
+
+  displayFood(selectedFood) {
+    this.setState({selectedFood})
   }
 
   removeFood(selectedFood) {
@@ -65,39 +76,24 @@ class App extends Component {
     this.setState({
       myFoods: myFoods
     })
-
-    this.updateCalories(selectedFood, -1)
-    // localStorage.state = JSON.stringify(this.state);
-
+    this.updateStats();
   }
 
-  updateCalories = (update) => {
-    switch (update.type) {
-      case "serving_quantity":
-        console.log(update.food)
-        break;
-      default:
-
+  updateStats() {
+    const newStats = {
+      calories: 0,
+      carbs: 0,
+      protein: 0,
+      fat: 0
     }
-    // let newStats = {};
-    // if (addOrRemove ===  1) {
-    //   newStats = {
-    //     calories: this.state.myStats.calories += selectedFood.calories,
-    //     protein: this.state.myStats.protein += selectedFood.protein,
-    //     carbs: this.state.myStats.carbs += selectedFood.carbs,
-    //     fat: this.state.myStats.fat += selectedFood.fat
-    //   }
-    // }
-    // else {
-    //   newStats = {
-    //     calories: this.state.myStats.calories -= selectedFood.calories,
-    //     protein: this.state.myStats.protein -= selectedFood.protein,
-    //     carbs: this.state.myStats.carbs -= selectedFood.carbs,
-    //     fat: this.state.myStats.fat -= selectedFood.fat
-    //   }
-    // }
-    //
-    // this.setState({ myStats: newStats })
+    this.state.myFoods.forEach(function(myFood) {
+      newStats.calories += myFood.calories * myFood.quantity
+      newStats.carbs += myFood.carbs * myFood.quantity
+      newStats.protein += myFood.protein * myFood.quantity
+      newStats.fat += myFood.fat * myFood.quantity
+    })
+
+    this.setState({ myStats: newStats })
   }
 
   render() {
@@ -105,7 +101,7 @@ class App extends Component {
       if (term !== '') {
         this.foodSearch(term)
       }
-    }, 100);
+    }, 50);
 
     return (
       <div className="container">
@@ -128,24 +124,25 @@ class App extends Component {
         </div>
         <div className="content">
           <div className = "row">
-            <MyStats stats={this.state.myStats}/>
+            <MyStats myStats={this.state.myStats}/>
           </div>
           <div className="row">
             <SearchBar onSearchTermChange={foodSearch} />
           </div>
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-4">
               <h3>Find Food</h3>
               <FoodList
-                onFoodSelect={this.addFood}
+                onFoodSelect={this.displayFood}
+                addFood={this.addFood}
                 foods={this.state.foods}
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <h3>Nutrition</h3>
               <FoodDetail food={this.state.selectedFood}/>
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <h3>My Food</h3>
               {/*
               <FoodList
@@ -155,7 +152,8 @@ class App extends Component {
               */}
               <MyFoodList
                 foods={this.state.myFoods}
-                onQuantityChange={this.updateCalories}
+                onQuantityChange={this.updateStats}
+                onDelete={this.removeFood}
               />
             </div>
           </div>

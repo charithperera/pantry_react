@@ -5,3 +5,11 @@
 h3 {
   text-align: center;
 }
+
+.food-item {
+  cursor: pointer;
+}
+
+.food-item:hover {
+  background-color: mistyrose;
+}

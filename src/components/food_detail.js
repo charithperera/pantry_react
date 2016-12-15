@@ -7,7 +7,7 @@ const FoodDetail = (props) => {
   if (!food) {
     return (
       <div className="text-center">
-        <h4>Search Now!</h4>
+        <h4></h4>
       </div>
     )
   }
@@ -22,7 +22,7 @@ const FoodDetail = (props) => {
         <header className="performance-facts__header">
           <h1 className="performance-facts__title">Nutrition Facts</h1>
           <p>Serving Size {food.serving_size} {food.serving_type}</p>
-          {/*<p>Serving Per Container 8</p>*/}
+          <p>Serving Per Container {food.servings_per_container || "N/A"}</p>
         </header>
         <table className="performance-facts__table">
           <thead>
@@ -38,7 +38,7 @@ const FoodDetail = (props) => {
                 <b>Calories</b> {food.calories}
               </th>
               <td>
-                Calories from Fat {food.fat}
+                Calories from Fat N/A
               </td>
             </tr>
             <tr className="thick-row">
@@ -49,10 +49,9 @@ const FoodDetail = (props) => {
             <tr>
               <th colSpan="2">
                 <b>Total Fat</b>
-                14g
               </th>
               <td>
-                <b>22%</b>
+                <b>{food.fat}g</b>
               </td>
             </tr>
             <tr>
@@ -60,10 +59,9 @@ const FoodDetail = (props) => {
               </td>
               <th>
                 Saturated Fat
-                9g
               </th>
               <td>
-                <b>22%</b>
+                <b>N/A</b>
               </td>
             </tr>
             <tr>
@@ -71,36 +69,33 @@ const FoodDetail = (props) => {
               </td>
               <th>
                 Trans Fat
-                0g
               </th>
               <td>
+                N/A
               </td>
             </tr>
             <tr>
               <th colSpan="2">
                 <b>Cholesterol</b>
-                55mg
               </th>
               <td>
-                <b>18%</b>
+                <b>N/A</b>
               </td>
             </tr>
             <tr>
               <th colSpan="2">
                 <b>Sodium</b>
-                40mg
               </th>
               <td>
-                <b>2%</b>
+                <b>N/A</b>
               </td>
             </tr>
             <tr>
               <th colSpan="2">
                 <b>Total Carbohydrate</b>
-                17g
               </th>
               <td>
-                <b>6%</b>
+                <b>{food.carbs}g</b>
               </td>
             </tr>
             <tr>
@@ -108,10 +103,9 @@ const FoodDetail = (props) => {
               </td>
               <th>
                 Dietary Fiber
-                1g
               </th>
               <td>
-                <b>4%</b>
+                <b>N/A</b>
               </td>
             </tr>
             <tr>
@@ -119,23 +113,23 @@ const FoodDetail = (props) => {
               </td>
               <th>
                 Sugars
-                14g
               </th>
               <td>
+                N/A
               </td>
             </tr>
             <tr className="thick-end">
               <th colSpan="2">
                 <b>Protein</b>
-                3g
               </th>
               <td>
+                <b>{food.protein}g</b>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <table className="performance-facts__table--grid">
+        {/* <table className="performance-facts__table--grid">
           <tbody>
             <tr>
               <td colSpan="2">
@@ -158,11 +152,11 @@ const FoodDetail = (props) => {
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
 
         <p className="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
 
-        <table className="performance-facts__table--small small-info">
+        {/* <table className="performance-facts__table--small small-info">
           <thead>
             <tr>
               <td colSpan="2"></td>
@@ -209,7 +203,7 @@ const FoodDetail = (props) => {
               <td>30g</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
 
         <p className="small-info">
           Calories per gram:

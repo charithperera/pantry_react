@@ -6,6 +6,7 @@ const FoodList = (props) => {
   const foodItems = props.foods.map(function(food) {
     return (
       <FoodListItem
+        addFood={props.addFood}
         onFoodSelect={props.onFoodSelect}
         key={food.id}
         food={food}
